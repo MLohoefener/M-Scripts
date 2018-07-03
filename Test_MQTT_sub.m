@@ -11,16 +11,16 @@ clear
 % host = 'tcp://broker.hivemq.com';
 host = 'iot.hs-merseburg.de';
 topic = 'Uhrzeit';
-puf = {0};                                % Message-Puffer
+puf = {0};                                  % Message-Puffer
 
-for c = 1:20                              % Counter
-    [stat, txt] = mqtt_sub (host, topic); % Uhrzeit empfangen
+for c = 1:20                                % Counter
+    [stat, txt] = mqtt_sub (host, topic);   % Uhrzeit empfangen
     testMessage = datestr (now, 'dd.mm.yyyy HH:MM:SS');
-    puf (c) = {[testMessage ' : ' txt]};  % Empfangs- und Sendezeit
+    puf (c) = {[testMessage ' : ' txt]};    % Empfangs- und Sendezeit
 end
 
-disp (puf');                               % auf Konsole
+disp (puf');                                % auf Konsole
 fid = fopen ('puf.txt', 'w');
 fprintf (fid, '%s\n', '    Empfangszeit    :     Sendezeit');
-fprintf (fid, '%s', puf{:});              % und in Datei
+fprintf (fid, '%s', puf{:});                % und in Datei
 fclose (fid);
