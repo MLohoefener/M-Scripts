@@ -7,8 +7,8 @@
 % TCP-Port: 1883
 
 clear
-% host = 'test.mosquitto.org';
-% host = 'tcp://broker.hivemq.com';
+%host = 'test.mosquitto.org';
+%host = 'broker.hivemq.com';
 host = 'iot.hs-merseburg.de';
 topic = 'Uhrzeit';
 puf = {0};                                  % Message-Puffer
