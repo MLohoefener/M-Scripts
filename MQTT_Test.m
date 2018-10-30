@@ -6,12 +6,12 @@
 
 clear
 
-%host = '192.168.1.122';
-%host = 'localhost';
-%host = '10.42.0.1';                    % my_free_wifi
-host = 'test.mosquitto.org';
-%host = 'broker.hivemq.com';
-%host = 'iot.hs-merseburg.de';
+%host = 'tcp://192.168.1.122';
+%host = 'tcp://localhost';
+%host = 'tcp://10.42.0.1';              % my_free_wifi
+%host = 'tcp://test.mosquitto.org';
+host = 'tcp://broker.hivemq.com';
+%host = 'tcp://iot.hs-merseburg.de';
 
 %topic = 'Uhrzeit';
 topic = 'HoMe18';
