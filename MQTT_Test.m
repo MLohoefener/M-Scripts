@@ -1,21 +1,29 @@
-% MQTT_Test.m mit MATLAB und MQTT-Toolbox
+% MQTT_Test.m - publish messages with MATLAB MQTT-Toolbox
 % https://de.mathworks.com/matlabcentral/fileexchange/64303-mqtt-in-matlab
 % http://www.mqtt-dashboard.com/
-% Versenden von Nachrichten - publish
 % Manfred Lohöfener, HoMe, 25.05.2018
-% TCP-Port: 1883
+% Default TCP-Port: 1883
 
 clear
-% host = 'tcp://test.mosquitto.org';	% oder alternativ
-% host = 'tcp://broker.hivemq.com';
-host = 'tcp://iot.hs-merseburg.de';
-topic = 'Uhrzeit';
-myMQTT = mqtt (host);                   % neue MQTT-Verbindung
+
+%host = '192.168.1.122';
+%host = 'localhost';
+%host = '10.42.0.1';                    % my_free_wifi
+host = 'test.mosquitto.org';
+%host = 'broker.hivemq.com';
+%host = 'iot.hs-merseburg.de';
+
+%topic = 'Uhrzeit';
+topic = 'HoMe18';
+%topic = 'Advantech/00D0C9FAD5D3/data'; % WISE-4012 Development Kit
+%topic = 'Advantech/#';
+
+myMQTT = mqtt (host);                   % new MQTT link
 
 for c = 1:20                            % Counter
-    testMessage = datestr (now, 'dd.mm.yyyy HH:MM:SS');  % Uhrzeit
-    publish (myMQTT, topic, testMessage)    
-    pause (2)                           % 2 s Pause
+    testMessage = datestr (now, 'dd.mm.yyyy HH:MM:SS');  % timestamp
+    publish (myMQTT, topic, testMessage)    % function of MATLAB MQTT-Toolbox
+    pause (2)                           % 2 s break
 end
 
-% mySub = subscribe (myMQTT,topic);     % noch unklar
+% mySub = subscribe (myMQTT,topic);     % quite unclear
