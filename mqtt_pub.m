@@ -1,5 +1,5 @@
 function ret = mqtt_pub (host, topic, testMessage)
-% Send 1 MQTT message
+% Send a MQTT message
 % Example: mqtt_pub ('iot.hs-merseburg.de', 'Uhrzeit', '03.07.2018 11:15:22')
 % 01.12.2017, Manfred Lohöfener, HoMe
 

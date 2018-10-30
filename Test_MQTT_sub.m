@@ -12,8 +12,8 @@ clear
 %host = '192.168.1.122';
 %host = 'localhost';
 %host = '10.42.0.1';                        % my_free_wifi
-host = 'test.mosquitto.org';
-%host = 'broker.hivemq.com';
+%host = 'test.mosquitto.org';
+host = 'broker.hivemq.com';
 %host = 'iot.hs-merseburg.de';
 
 %topic = 'Uhrzeit';

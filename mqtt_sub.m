@@ -1,5 +1,5 @@
 function [stat, txt] = mqtt_sub (host, topic)
-% Receive 1 MQTT message
+% Receive a MQTT message
 % Example: [stat, txt] = mqtt_sub ('iot.hs-merseburg.de', 'Uhrzeit')
 % 01.12.2017, Manfred Lohöfener, HoMe
 
