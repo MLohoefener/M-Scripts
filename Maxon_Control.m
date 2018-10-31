@@ -1,11 +1,11 @@
-% Script Maxon_Control.m
+%% Script Maxon_Control.m
 % Manfred Lohöfener
 % 06/11/2017, Brno, BUT, FME
 
 clear
 close all
 
-%% Data of Maxon Motor RE 35 ∅35 mm, Graphite Brushes, 90 Watt
+%% 1st: Data of Maxon Motor RE 35 ∅35 mm, Graphite Brushes, 90 Watt
 % Values at nominal voltage
 u_nom = 30;               % [V] Nominal voltage
 w_idl_r = 7280;           % [rpm] No load speed
@@ -31,7 +31,7 @@ J_R_g = 67.9;             % [g.cm²] Rotor inertia
 J_R = J_R_g/10^3/100^2;   % [kg.m²], [N.m.s²] Rotor inertia
 K_f = K_m*i_idl/w_idl;    % [N.m.s] Friction
 
-%% Transfer Functions TF of controlled system
+%% 2nd: Transfer Functions TF of controlled system
 % Simple TF of Maxon Motor
 s = tf('s');
 G_ui =    1 / (R_T + L_T*s);
@@ -45,35 +45,12 @@ Gs_Tw = minreal (     G_Tw / (1 - G_iw*G_wi));
 Gs_ui = minreal (     G_ui / (1 - G_iw*G_wi));
 Gs_Ti = minreal (G_Tw*G_wi / (1 - G_iw*G_wi));
 
-% Gear TF
-K_G = 1 / w_nom;                %  [m] Gear with 1 m/s for nominal speed
+% Gear TF, System TF
+K_G = 1 / w_nom;                % [m] Gear gain, 1 m/s for nom. speed
 G_wy = K_G / s;                 % omega(t) -> y(t)
-G_uy = minreal (Gs_uw * G_wy);  % System TF
+G_uy = minreal (Gs_uw * G_wy);  % System TF of motor and gear
 
-figure ('Name', 'Step Answer omega(t)', 'NumberTitle', 'off', 'Position', [0 0 800 600]);
-  set (gca, 'FontSize', 15); hold on
-  step (Gs_uw*u_nom, Gs_Tw*T_nom, 0.05);
-  set (findobj (gcf, 'type', 'line'), 'LineWidth', 2);
-  grid on
-  title ('DC Motor - Speed')
-  xlabel ('Time [s]')
-  ylabel ('w(t) [rad/s]')
-  legend ('w(t) u_{nom}', 'w(t) T_{nom}')
-  legend boxoff
-  
-figure ('Name', 'Step Answer i(t)', 'NumberTitle', 'off', 'Position', [0 100 800 600]);
-  set (gca, 'FontSize', 15); hold on
-  step (Gs_ui*u_nom, Gs_Ti*T_nom, 0.05);
-  set (findobj (gcf, 'type', 'line'), 'LineWidth', 2);
-  grid on
-  title ('DC Motor - Current')
-  xlabel ('Time [s]')
-  ylabel ('i(t) [A]')
-  legend ('i(t) u_{nom}', 'i(t) T_{nom}')
-  legend boxoff
-
-%% PID Controller
-
+%% 3rd, 4th: PID Controller
 % Ziegler-Nichols Stability limit
 %K_P = 93200;                          % Proportional gain, tested limit
 %T_I = 9999;                           % [s] Integral time constant
@@ -86,12 +63,12 @@ figure ('Name', 'Step Answer i(t)', 'NumberTitle', 'off', 'Position', [0 100 800
 %T_D = T_crit / 8;                   % [s] 9.6250e-04
 
 % Quarter-Damping Method
-%K_P = 18000;                        % Proportional gain, 1/4 damping
+%K_P = 18000;                        % Proportional gain, ¼ damping
 %T_I = 9999;                         % [s] Integral time constant
 %T_D = 0.0;                          % [s] Differential time constant
 
-K_q = 18000;                        % Proportional gain
-T_q = 0.017;                        % T_p = 17 ms, measured 1/4 damping
+K_q = 18000;                        % K¼, Controller gain
+T_q = 0.017;                        % [s] T¼, Oszillation time
 K_P = 1.2 * K_q;                    % Proportional gain
 T_I = 0.6*T_q;                      % [s] Integral time constant
 T_D = 0.15*T_q;                     % [s] Differential time constant
@@ -103,7 +80,7 @@ T_D = 0.15*T_q;                     % [s] Differential time constant
 
 G_C = pidstd (K_P, T_I, T_D, 100);    % Choose parameters 
 
-%% Control Circuit
+%% 5th: Control Circuit
 G_ry = feedback (G_C*G_uy, 1);  % Feedback: r_set -> y_contr
 G_ru = feedback (G_C, G_uy);    % Feedback: r_set -> u
 
@@ -118,8 +95,8 @@ figure ('Name', 'Control Circuit', 'NumberTitle', 'off', 'Position', [200 200 80
   ylabel ('y(t) [m], u(t) [V]')
   legend (['y(t) with K_P = ', num2str(K_P)], 'u(t)', 'Location', 'East')
   legend boxoff
-  axis ([0 1 -1 10])
-%  axis ([0 0.2 -1 10])
+%  axis ([0 1 -1 10])
+  axis ([0 0.2 -1 10])
 
 % Poles of any feedback are equal to zeros of characteristic equation
 format short eng
