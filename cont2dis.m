@@ -1,8 +1,7 @@
 % Z-Transformation mit MATLAB / Octave cont2dis.m
 % 07.04.2016, M. Lohöfener
 
-clear all	% clear figure
-close all
+clear; close all
 
 % P-T_D1-T_2-Glied 
 K_P = 1.5;  % Proportionalfaktor
@@ -10,8 +9,9 @@ T_D1= 1.0;  % [s] Vorhaltzeitkonstante
 T   = 2.0;  % [s] Kennzeitkonsante
 D   = 0.5;  % Kenndaempfung
 T_0 = 0.5;  % [s] Abtastzeit
-t   = 0: 0.01: 10;
-td  = 0: T_0: 10;
+T_E = 20;   % [s] Simulationsende
+t   = 0: 0.01: T_E;
+td  = 0: T_0: T_E;
 
 s   = tf ('s');     % Operator bauen
 G_s = K_P*(T_D1*s + 1) / (T^2*s^2 + 2*T*D*s + 1)
