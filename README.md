@@ -16,4 +16,3 @@ File | Description
 **RK_DB_S.m** | Discrete control loop with Dead-Beat controller for disturbance control without dead time
 **RK_DB_S_d.m** | Discrete control loop with Dead-Beat controller for disturbance control with discrete dead time
 **RK_MV.m** | Discrete control loop with Minimal-Variance controller for disturbance control without dead time
-**Signale.m** | MTS I: Script to plot deterministic an stochastic signals
