@@ -8,4 +8,3 @@ File | Description
 **Antrieb_Ausg_Vekt.csv** | Output vector for RLS of DC-motor
 **Antrieb_Messmatr.csv** | Measurement matrix for RLS of DC-motor
 **Antrieb_RLS.m** | RLS (Recursive Least Squares) applied to model of DC-motor
-**P_T2.m** | Pole Zero Map of example control system, continuous and discrete
